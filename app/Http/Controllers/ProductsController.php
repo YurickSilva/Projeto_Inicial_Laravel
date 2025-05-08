@@ -20,4 +20,9 @@ class ProductsController extends Controller
         ]);
         return '<p> Produto inserido com Sucesso </p>';
     }
+    public function index(){
+        return view('products.index', [
+            'products'=> Product::all()
+        ]);
+    }
     }

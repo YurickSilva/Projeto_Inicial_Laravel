@@ -8,3 +8,4 @@ Route::get('/', function () {
 });
 Route::post('/products/new', [ProductsController::class,'store']);
 Route::get('/products/new', [ProductsController::class, 'create']);
+Route::get('/products', [ProductsController::class,'index']);
