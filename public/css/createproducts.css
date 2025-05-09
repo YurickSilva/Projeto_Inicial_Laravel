@@ -1,0 +1,28 @@
+@import 'tailwindcss';
+
+
+    body {
+        padding: 20px;
+        font-family: Arial, sans-serif;
+    }
+
+    form, a, button {
+        display: block;
+        margin-bottom: 20px; /* espaçamento entre os elementos */
+    }
+
+    table {
+        border-collapse: collapse;
+        margin-bottom: 20px; /* espaçamento entre tabelas, se houver mais de uma */
+    }
+
+    table th, table td {
+        padding: 8px;
+        border: 1px solid #000;
+    }
+    .create_products_table_producs {
+        display: inline-block; vertical-align: top; margin-right: 20px;
+    } 
+    .create_products_table_types{
+        display: inline-block; vertical-align: top;
+    }
