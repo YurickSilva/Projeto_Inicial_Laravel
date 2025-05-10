@@ -25,10 +25,18 @@ class ProductsController extends Controller
         return view("types.create");
     }
     public function storetypes(Request $request){
-        Type::create([
-            'name' => $request->name,
+        $request->validate([
+            'name' => 'required|string|max:255',
         ]);
+    
+        try {
+            Type::create(['name' => $request->name]);
+            return redirect()->back()->with('success', 'Tipo salvo com sucesso!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Erro ao salvar o tipo.');
+        }
     }
+    
     public function showlist(Request $request) {
         $products = Product::with('type')->get(); // carrega os produtos e seus tipos relacionados
         return view('products/listProducts', compact('products'));

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adicionar Novo Item</title>
     <link rel="stylesheet" href="{{ asset('css/createproducts.css') }}">
+    <link rel="shortcut icon" href="{{ asset('css/favicon.ico')}}" type="image/x-icon">
     @php
     $urllist = url('/products/list');
     @endphp

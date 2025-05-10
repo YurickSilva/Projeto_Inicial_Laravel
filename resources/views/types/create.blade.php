@@ -3,53 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{{ asset('css/favicon.ico')}}" type="image/x-icon">
     <title>Inserção de Tipos</title>
     <style>
         body {
             padding: 20px;
             font-family: Arial, sans-serif;
         }
-    </style>
-    <script>
-        async function enviarTipo(event) {
-            event.preventDefault(); // Impede o redirecionamento
-
-            const token = document.querySelector('input[name="_token"]').value;
-            const nome = document.querySelector('input[name="name"]').value;
-
-            const resposta = await fetch("{{ url('types/new') }}", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-CSRF-TOKEN": token
-                },
-                body: JSON.stringify({ name: nome })
-            });
-
-            if (resposta.ok) {
-                alert("Tipo salvo com sucesso!");
-            } else {
-                alert("Erro ao salvar tipo.");
-            }
+        dialog {
+            padding: 20px;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #0005;
         }
-        
-    </script>
-
+        dialog::backdrop {
+            background: rgba(0, 0, 0, 0.3);
+        }
+    </style>
 </head>
 <body>
-    <form onsubmit="enviarTipo(event)">
-        @csrf
-        <label>Tipos de produto:</label>
-        <br>
-        <input name="name" type="text" />
-        <br>
-        <input type="submit" value="Salvar" />
-    </form>
-    <br>
-    @php
-    $url = url('/products');
-    @endphp
-    <button type="button" onclick="window.location.href='{{ $url }}'">Voltar</but>
 
+<dialog id="mensagemDialog" >
+    <p id="mensagemTexto" style="text-align: center;"></p>
+    <button onclick="document.getElementById('mensagemDialog').close()" style="align-self: center;">Fechar</button>
+</dialog>
+
+
+<form method="POST" action="{{ url('/types/new') }}">
+    @csrf
+    <label>Tipos de produto:</label>
+        <input name="name" type="text" />
+        <input type="submit" value="Salvar" />
+</form>
+
+@php
+    $url = url('/products');
+@endphp
+<button type="button" onclick="window.location.href='{{ $url }}'">Voltar</button>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const dialog = document.getElementById('mensagemDialog');
+        const texto = document.getElementById('mensagemTexto');
+
+        @if ($errors->any())
+            texto.innerHTML = `{!! implode('<br>', $errors->all()) !!}`;
+            dialog.showModal();  // Exibe o dialog com erros
+        @elseif (session('success'))
+            texto.textContent = "{{ session('success') }}";  // Mensagem de sucesso
+            dialog.showModal();  // Exibe o dialog com a mensagem de sucesso
+        @elseif (session('error'))
+            texto.textContent = "{{ session('error') }}";  // Mensagem de erro
+            dialog.showModal();  // Exibe o dialog com a mensagem de erro
+        @endif
+    });
+</script>
 </body>
 </html>

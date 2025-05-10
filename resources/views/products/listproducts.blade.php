@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Lista de Produtos</title>
     <link rel="stylesheet" href="{{ asset('css/listproducts.css') }}">
+    <link rel="shortcut icon" href="{{ asset('css/favicon.ico')}}" type="image/x-icon">
 </head>
 <body>
     <h1>Lista de Produtos</h1>
